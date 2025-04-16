@@ -20,6 +20,16 @@ export interface Message {
   id: string;
   user_id: string;
   content: string;
+  type: 'text' | 'media';
   role: 'user' | 'bot';
   created_at: string;
+  mediaData?: MediaData[];
+  error?: boolean;
+}
+
+export interface MediaData {
+  symbol: string;
+  name: string;
+  percentage: number;
+  trend: 'up' | 'down';
 }

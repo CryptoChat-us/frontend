@@ -1,11 +1,18 @@
+export interface MediaData {
+  symbol: string;
+  name: string;
+  percentage: number;
+  trend: 'up' | 'down';
+}
+
 export interface Message {
   id: string;
   content: string;
   type: 'text' | 'media';
-  sender: 'user' | 'bot';
-  timestamp: string;
-  mediaUrl?: string;
-  mediaType?: 'image' | 'chart' | 'card';
+  role: 'user' | 'bot';
+  created_at: string;
+  mediaData?: MediaData[];
+  error?: boolean;
 }
 
 export interface ChatCard {

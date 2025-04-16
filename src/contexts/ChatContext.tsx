@@ -12,8 +12,8 @@ interface Message {
   id: string;
   type: 'text' | 'media';
   content: string;
-  sender: 'user' | 'bot';
-  timestamp: string;
+  role: 'user' | 'bot';
+  created_at: string;
   mediaData?: MediaData[];
   error?: boolean;
 }
@@ -22,7 +22,7 @@ interface ChatMessage {
   id?: string;
   content: string;
   role: 'user' | 'bot';
-  timestamp?: string;
+  created_at?: string;
 }
 
 interface ChatContextType {
@@ -56,8 +56,8 @@ export function ChatProvider({ children }: { children: ReactNode }) {
                   id: msg.id || Date.now().toString(),
                   type: 'media' as const,
                   content: parsedContent.text || '',
-                  sender: msg.role === 'user' ? 'user' : 'bot',
-                  timestamp: msg.timestamp || new Date().toISOString(),
+                  role: msg.role,
+                  created_at: msg.created_at || new Date().toISOString(),
                   mediaData: parsedContent.mediaData
                 };
               }
@@ -65,8 +65,8 @@ export function ChatProvider({ children }: { children: ReactNode }) {
                 id: msg.id || Date.now().toString(),
                 type: 'text' as const,
                 content: msg.content,
-                sender: msg.role === 'user' ? 'user' : 'bot',
-                timestamp: msg.timestamp || new Date().toISOString()
+                role: msg.role,
+                created_at: msg.created_at || new Date().toISOString()
               };
             } catch (e) {
               console.error('Error parsing message:', e);
@@ -74,8 +74,8 @@ export function ChatProvider({ children }: { children: ReactNode }) {
                 id: msg.id || Date.now().toString(),
                 type: 'text' as const,
                 content: msg.content,
-                sender: msg.role === 'user' ? 'user' : 'bot',
-                timestamp: msg.timestamp || new Date().toISOString(),
+                role: msg.role,
+                created_at: msg.created_at || new Date().toISOString(),
                 error: true
               };
             }
@@ -104,8 +104,8 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         id: Date.now().toString(),
         content,
         type: 'text',
-        sender: 'user',
-        timestamp: new Date().toISOString()
+        role: 'user',
+        created_at: new Date().toISOString()
       };
       setMessages(prev => [...prev, userMessage]);
 
@@ -121,8 +121,8 @@ export function ChatProvider({ children }: { children: ReactNode }) {
             id: response.id || Date.now().toString(),
             type: 'media',
             content: parsedContent.text || '',
-            sender: 'bot',
-            timestamp: response.timestamp || new Date().toISOString(),
+            role: 'bot',
+            created_at: response.created_at || new Date().toISOString(),
             mediaData: parsedContent.mediaData
           };
         } else {
@@ -130,8 +130,8 @@ export function ChatProvider({ children }: { children: ReactNode }) {
             id: response.id || Date.now().toString(),
             type: 'text',
             content: response.content,
-            sender: 'bot',
-            timestamp: response.timestamp || new Date().toISOString()
+            role: 'bot',
+            created_at: response.created_at || new Date().toISOString()
           };
         }
         
@@ -157,8 +157,8 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         id: Date.now().toString(),
         type: 'text',
         content: errorMessage,
-        sender: 'bot',
-        timestamp: new Date().toISOString(),
+        role: 'bot',
+        created_at: new Date().toISOString(),
         error: true
       }]);
     } finally {

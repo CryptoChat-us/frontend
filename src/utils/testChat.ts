@@ -1,5 +1,4 @@
 import { chatService } from '../services/chatService';
-import { Message } from '../types/Message';
 
 export const testChatFunctionality = async () => {
   const testMessages = [

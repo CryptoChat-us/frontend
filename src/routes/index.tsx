@@ -2,8 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 import StartPage from '@/pages/StartPage'
 import LoginPage from '@/pages/LoginPage'
-import SignupStepOne from '@/pages/SignupStepOne'
-import SignupStepTwo from '@/pages/SignupStepTwo'
+import SignupPage from '@/pages/SignupPage'
 import Dashboard from '@/pages/Dashboard'
 import { useAuth } from '@/hooks/useAuth'
 
@@ -18,8 +17,7 @@ export function AppRoutes() {
       <Routes>
         <Route path="/" element={<StartPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupStepOne />} />
-        <Route path="/signup-step-2" element={<SignupStepTwo />} />
+        <Route path="/signup" element={<SignupPage />} />
         <Route 
           path="/dashboard" 
           element={

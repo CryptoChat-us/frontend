@@ -7,22 +7,6 @@ import UserAvatar from "@/components/UserAvatar";
 import PromptBarFull from "@/components/PromptBarFull";
 import AvatarMessage from "@/components/AvatarMessage";
 
-interface MediaData {
-  symbol: string;
-  name: string;
-  percentage: number;
-  trend: 'up' | 'down';
-}
-
-interface Message {
-  id: string;
-  type: 'text' | 'media';
-  content: string;
-  sender: 'user' | 'bot';
-  timestamp: string;
-  mediaData?: MediaData[];
-}
-
 const Dashboard = () => {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
   const { messages, loading, sendMessage } = useChat();
@@ -71,9 +55,9 @@ const Dashboard = () => {
                 </div>
               ) : (
                 messages.map((message) => (
-                  <div key={message.id} className={`${message.sender === 'user' ? 'flex justify-end' : 'flex justify-start'}`}>
+                  <div key={message.id} className={`${message.role === 'user' ? 'flex justify-end' : 'flex justify-start'}`}>
                     {message.type === 'text' ? (
-                      <div className={`${message.sender === 'user'
+                      <div className={`${message.role === 'user'
                         ? 'bg-neutral-900 rounded-[96px] py-5 px-[60px] max-w-[75%]'
                         : 'bg-neutral-950/60 rounded-[96px] py-5 px-[60px] max-w-[75%]'
                       } transition-all duration-200 hover:bg-opacity-80`}>
